@@ -63,12 +63,22 @@ public class controleEstoque {
                     switch (escolhaMenu) {
                         case 1:
                             System.out.println("Qual o id do produto que você deseja repor a quantidade?");
-                            if (idRepor)
+                            idRepor = inputNumero.nextInt();
+                            if (idRepor > id || idRepor < 0) {
+                                System.out.println("Vai tomar no cu");
+                            } else {
+
+                                System.out.println("Quantas unidades deseja ter nesse produto?");
+                                quantidadeRepor = inputNumero.nextInt();
+                                quantidade.set(idRepor, quantidadeRepor);
+                                break;
+
+
+                                case 2:
+
+                            }
 //                            idRepor = inputNumero.nextInt();
 
-                            System.out.println("Quantas unidades deseja ter nesse produto?");
-                            quantidadeRepor = inputNumero.nextInt();
-                            quantidade.set(idRepor, quantidadeRepor);
 
 
 
