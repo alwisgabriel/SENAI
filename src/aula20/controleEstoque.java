@@ -4,96 +4,240 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class controleEstoque {
-    public static void main(String[] args){
 
-    // ArrayList<String> variavel = new ArrayList<>();
-
-    // 1. Criar um menu do-while com switch com os cases:
-
-    // Case 1: Adicionar ou repor
-    // Case 2: Venda
-    // Case 3: Consultar estoque
-
-    // 2. Condicionais
-
-    // Se chegar a 0 o item pode ser removido da lista
-
-    // 3. Cálculo de valor total
-    // Printar valores somados
-
-    ArrayList<String> nome = new ArrayList<>();
-    ArrayList<Double> preco = new ArrayList<>();
-    ArrayList<Integer> quantidade = new ArrayList<>();
-    int id = -1;
-    int escolhaMenu = 0;
-    int escolhaRepor = 0;
-    int idRepor = 0;
-    int quantidadeRepor;
+    public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
         Scanner inputNumero = new Scanner(System.in);
 
-    do {
+        ArrayList<String> nome = new ArrayList<>(); // Nome do produto
+        ArrayList<Double> preco = new ArrayList<>(); // Preço do produto
+        ArrayList<Integer> quantidade = new ArrayList<>(); // Quantidade do produto
 
-        System.out.println("Digite [1] para adicionar/repor produtos");
-        System.out.println("Digite [2] para vender o produto"); // N ESQUECE DE DIMINUIR A QUANTIDADE CARALHO
-        switch (escolhaMenu){
-            case 1:
+        int resposta;
+        int id = 0; // ID inicia em 0
 
-                if (id < -1){
-                System.out.println("O Id do cadastro deste produto é");
-                System.out.println(id);
+        System.out.println("bem vindo ao sistema");
 
+        do {
 
-                System.out.println("Digite o nome do produto");
-                nome.add(input.nextLine());
+            System.out.println("[1] adicionar produto");
+            System.out.println("[2] repor produto");
+            System.out.println("[3] vender produto");
+            System.out.println("[4] consultar estoque");
+            System.out.println("[5] remover todos produtos");
+            System.out.println("[0] sair");
 
-                System.out.println("Digite o preço do produto");
-                preco.add(input.nextDouble());
+            resposta = inputNumero.nextInt();
 
-                System.out.println("Digite a quantidade de produtos");
-                quantidade.add(inputNumero.nextInt());
-                id++;
-                }
+            switch (resposta) {
 
-                else if (id > -1) {
+                case 1:
 
-                    System.out.println("Você deseja repor ou adicionar itens? [1] Repor [2] Adicionar");
-                    escolhaMenu = inputNumero.nextInt();
-                    switch (escolhaMenu) {
-                        case 1:
-                            System.out.println("Qual o id do produto que você deseja repor a quantidade?");
-                            idRepor = inputNumero.nextInt();
-                            if (idRepor > id || idRepor < 0) {
-                                System.out.println("Vai tomar no cu");
-                            } else {
+                    System.out.println("id do produto");
+                    System.out.println(id); // Printa o ID atual do produto, iniciando em 0
 
-                                System.out.println("Quantas unidades deseja ter nesse produto?");
-                                quantidadeRepor = inputNumero.nextInt();
-                                quantidade.set(idRepor, quantidadeRepor);
-                                break;
+                    System.out.println("digite o nome do produto");
+                    nome.add(input.nextLine());
 
+                    System.out.println("digite o preço");
+                    preco.add(inputNumero.nextDouble());
 
-                                case 2:
+                    System.out.println("digite a quantidade");
+                    quantidade.add(inputNumero.nextInt());
 
-                            }
-//                            idRepor = inputNumero.nextInt();
+                    /*
+                     Adiciona os valores digitados pelo usuário às listas correspondentes.
 
+                     Exemplo:
 
+                     id = 0
+                     nome[0] = "mouse"
+                     preco[0] = 50.0
+                     quantidade[0] = 3
 
+                     Cada índice representa um produto.
+                    */
 
+                    System.out.println("produto cadastrado");
+
+                    id++; // Adiciona 1 ID a cada produto cadastrado
+                    // Exemplo: 5 produtos cadastrados = IDs 0, 1, 2, 3 e 4
+
+                    break;
+
+                case 2:
+                    // Se a quantidade de id cadastrados for igual a 0, vai printar que não tem nenhum produto cadastrado
+                    if (nome.size() == 0) {
+
+                        System.out.println("nenhum produto cadastrado");
+                        break;
                     }
-                }
+
+                    System.out.println("qual o id do produto que deseja repor?");
+                    int idRepor = inputNumero.nextInt();
+                    //Aqui ele checa se o ID do produto é valido, se o idrepor for maior ou igual a zero e se idrepor for menor ao tanto de id's cadastrados não válida
+                    if (idRepor >= 0 && idRepor < nome.size()) {
+                        //Aqui ele pergunta a quantidade do item que o usuario vai querer repor, verificando o valor do input digitado pelo usuario
+                        System.out.println("quantidade pra adicionar");
+                        int repor = inputNumero.nextInt();
+                        //aqui ele pega a lista "quantidade" e usa o metodo ".get(idrepor)" para verificar a quantidade de unidades ja tem daquele produto
+                        int quantidadeAtual = quantidade.get(idRepor);
+                        //Aqui soma a quantidade que ja tem de unidades e soma com a quantidade que o usuario quer adicionar
+                        quantidade.set(idRepor, quantidadeAtual + repor);
+
+                        System.out.println("produto reposto");
+
+                    } else {
+
+                        System.out.println("id invalido");
+                    }
+
+                    break;
 
 
+                case 3:
 
-        }
-    } while (escolhaMenu != 0);
+                    // Se não tem nenhum produto cadastrado o código para,
+                    // pois não existe produto para vender
+                    if (nome.size() == 0) {
+
+                        System.out.println("nenhum produto cadastrado");
+                        break;
+                    }
+
+                    System.out.println("qual o id do produto?");
+                    int idVenda = inputNumero.nextInt();
+
+                    // Verifica se o ID informado existe
+                    if (idVenda >= 0 && idVenda < nome.size()) {
+
+                        System.out.println("quantidade vendida?");
+                        int venda = inputNumero.nextInt();
+
+                        // Obtém a quantidade atual do produto em estoque
+                        int quantidadeAtual = quantidade.get(idVenda);
+
+                        // Se a quantidade vendida for menor ou igual ao estoque disponível,
+                        // a venda pode ser realizada
+                        if (venda <= quantidadeAtual) {
+
+                            // Atualiza a quantidade após a venda
+                            quantidade.set(idVenda, quantidadeAtual - venda);
+
+                            System.out.println("venda realizada");
+
+                            // Se o estoque chegar a zero, remove o produto da lista
+                            if (quantidade.get(idVenda) == 0) {
+
+                                nome.remove(idVenda);
+                                preco.remove(idVenda);
+                                quantidade.remove(idVenda);
+
+                                System.out.println("produto removido por falta de estoque");
+                            }
+
+                        } else {
+
+                            // Tentativa de vender mais unidades do que existem em estoque
+                            System.out.println("sem estoque");
+                            break;
+                        }
+
+                    } else {
+
+                        // Caso o ID informado não exista
+                        System.out.println("id invalido");
+                        break;
+                    }
+
+                    break;
+
+                case 4:
+                    //se o tanto de items for 0 vai printar que o estoque esta vazio
+                    if (nome.size() == 0) {
+
+                        System.out.println("estoque vazio");
+                        break;
+                    }
+
+                    //Aqui ele consulta a quantidade de unidades
+                    double valorTotal = 0;
+
+                    for (int i = 0; i < nome.size(); i++) {
+
+                        System.out.println("id: " + i);
+                        System.out.println("nome: " + nome.get(i));
+                        System.out.println("preço: " + preco.get(i));
+                        System.out.println("quantidade: " + quantidade.get(i));
+
+                        // aviso caso o estoque esteja baixo
+                        if (quantidade.get(i) <= 5) {
+
+                            System.out.println("AVISO: estoque baixo (" + quantidade.get(i) + " unidades restantes)");
+                        }
+
+                        //Aqui ele calcula o valor total do estoque
+                        double totalProduto = preco.get(i) * quantidade.get(i);
+
+                        valorTotal = valorTotal + totalProduto;
+
+                        System.out.println("----------------");
+                    }
+
+                    System.out.println("valor total do estoque");
+                    System.out.println(valorTotal);
+
+                    break;
+
+
+                case 5:
+                    //Aqui ele vai confirmar se deseja remover tudo
+                    System.out.println("deseja remover tudo?");
+                    System.out.println("[1] sim");
+                    System.out.println("[2] nao");
+
+                    int remover = inputNumero.nextInt();
+
+                    switch (remover) {
+
+                        case 1: // Caso resposta 1, remove tudo e reinicia os IDs
+
+                            nome.clear();
+                            preco.clear();
+                            quantidade.clear();
+
+                            id = 0;
+
+                            System.out.println("estoque apagado");
+
+                            break;
+
+                        case 2: // Não remove os produtos
+
+                            System.out.println("cancelado");
+                            break;
+
+                        default: // Opção inválida
+
+                            System.out.println("opção invalida");
+                            break;
+                    }
+
+                    break;
+
+                case 0: // Encerra o programa
+
+                    System.out.println("programa encerrado");
+                    break;
+
+                default: // Opção inexistente no menu
+
+                    System.out.println("opção invalida");
+                    break;
+            }
+
+        } while (resposta != 0);
 
     }
-
-
-
-
-
 }
