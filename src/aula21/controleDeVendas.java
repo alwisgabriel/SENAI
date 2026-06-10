@@ -25,7 +25,7 @@ public class controleDeVendas {
         int id = 0;
         int idProduto = 0;
         int idVenda;
-
+        int mediaMensual = 0;
         do {
 
             System.out.println("[1] Para cadastrar o cliente");
@@ -43,7 +43,7 @@ public class controleDeVendas {
 
                     System.out.println("id do vendedor");
                     System.out.println(id);
-                    entradaTexto.nextLine();
+
 
                     System.out.println("Digite o nome do cliente");
                     nomeCliente.add(entradaTexto.nextLine());
@@ -100,101 +100,126 @@ public class controleDeVendas {
                         vendasCliente[idVenda][j] = somaMes;
 
                         System.out.println("Total vendido no mês: " + somaMes);
+
                     }
 
                     break;
 
                 case 4:
+                    System.out.println("Digite o nome do cliente");
+                    String nomeConsulta = entradaTexto.nextLine().trim();
 
-                    System.out.println("Digite o id do cliente");
-                    int idConsulta = entradaNumero.nextInt();
+                    int idEncontrado = -1;
+                    for (int i = 0; i < nomeCliente.size(); i++) {
+                        if (nomeCliente.get(i).equalsIgnoreCase(nomeConsulta)) { // Ignora maiúsculo e minúsculo
+                            idEncontrado = i;
+                            break;
+                        }
+                    }
 
+                    if (idEncontrado == -1) {
+                        System.out.println("Cliente não encontrado: " + nomeConsulta);
+                        break;
+                    }
+
+
+                    System.out.println("Cliente: " + nomeCliente.get(idEncontrado));
                     int totalAno = 0;
-                    System.out.println("Cliente: " + nomeCliente.get(idConsulta));
-
                     for (int mes = 0; mes < 12; mes++) {
-                     int vendaMes = vendasCliente[idConsulta][mes];
+                        int vendaMes = vendasCliente[idEncontrado][mes];
                         System.out.println("Mês " + (mes + 1) + ": R$ " + vendaMes);
-
                         totalAno += vendaMes;
                     }
 
-                    System.out.println("Total anual: R$ " + totalAno);
+                    for (int cliente = 0; cliente < nomeCliente.size(); cliente++) {
 
+                        for (int mes = 0; mes < 12; mes++) {
+
+                        }
+
+                        System.out.println(); // Quebra de linha após cada linha da matriz
+                    }
+
+
+                    int mediaMensal = totalAno / 12; // inteiro; se quiser decimal, use double
+                    System.out.println("Total anual: R$ " + totalAno);
+                    System.out.println("Média mensal: R$ " + mediaMensal);
                     break;
 
-               case 5:
-
-    int totalGeral = 0;
-
-    // Começa assumindo que a primeira venda da matriz é a maior e a menor
-    int maiorVendaSistema = vendasCliente[0][0];
-    int menorVendaSistema = vendasCliente[0][0];
-
-    String clienteMaiorVenda = nomeCliente.get(0);
-    String clienteMenorVenda = nomeCliente.get(0);
-
-  
-    for (int cliente = 0; cliente < nomeCliente.size(); cliente++) {
-
-        int totalCliente = 0;
-
-        // Começa assumindo que a primeira venda do cliente é a maior e a menor
-        int maiorVendaCliente = vendasCliente[cliente][0];
-        int menorVendaCliente = vendasCliente[cliente][0];
 
 
-        int mesMaior = 1;
-        int mesMenor = 1;
+                case 5:
+
+                    int totalGeral = 0;
+
+                    // Começa assumindo que a primeira venda da matriz é a maior e a menor
+                    int maiorVendaSistema = vendasCliente[0][0];
+                    int menorVendaSistema = vendasCliente[0][0];
+
+                    String clienteMaiorVenda = nomeCliente.get(0);
+                    String clienteMenorVenda = nomeCliente.get(0);
 
 
-        for (int mes = 0; mes < 12; mes++) {
+                    for (int cliente = 0; cliente < nomeCliente.size(); cliente++) {
 
-            totalCliente += vendasCliente[cliente][mes];
+                        int totalCliente = 0;
 
-            // Verifica se encontrou uma venda maior
-            if (vendasCliente[cliente][mes] > maiorVendaCliente) {
-                maiorVendaCliente = vendasCliente[cliente][mes];
-                mesMaior = mes + 1; // +1 porque janeiro é mês 1
-            }
+                        // Começa assumindo que a primeira venda do cliente é a maior e a menor
+                        int maiorVendaCliente = vendasCliente[cliente][0];
+                        int menorVendaCliente = vendasCliente[cliente][0];
 
-            // se encontrou uma venda menor
-            if (vendasCliente[cliente][mes] < menorVendaCliente) {
-                menorVendaCliente = vendasCliente[cliente][mes];
-                mesMenor = mes + 1;
-            }
 
-            // Verifica a maior venda do sistema inteiro
-            if (vendasCliente[cliente][mes] > maiorVendaSistema) {
-                maiorVendaSistema = vendasCliente[cliente][mes];
-                clienteMaiorVenda = nomeCliente.get(cliente);
-            }
+                        int mesMaior = 1;
+                        int mesMenor = 1;
 
-              // a menor venda do sistema inteiro
-            if (vendasCliente[cliente][mes] < menorVendaSistema) {
-                menorVendaSistema = vendasCliente[cliente][mes];
-                clienteMenorVenda = nomeCliente.get(cliente);
-            }
-        }
 
-        System.out.println("\nCliente: " + nomeCliente.get(cliente));
-        System.out.println("Total vendido: R$ " + totalCliente);
-        System.out.println("Maior venda: R$ " + maiorVendaCliente + " (Mês " + mesMaior + ")");
-        System.out.println("Menor venda: R$ " + menorVendaCliente + " (Mês " + mesMenor + ")");
+                        for (int mes = 0; mes < 12; mes++) {
 
-        totalGeral += totalCliente;
-    }
+                            totalCliente += vendasCliente[cliente][mes];
 
-    
-    System.out.println("Total geral vendido: R$ " + totalGeral);
 
-    System.out.println("Maior venda registrada: R$ " + maiorVendaSistema);
-    System.out.println("Cliente responsável: " + clienteMaiorVenda);
+                            if (vendasCliente[cliente][mes] > maiorVendaCliente) {
+                                maiorVendaCliente = vendasCliente[cliente][mes];
+                                mesMaior = mes + 1; // +1 porque janeiro é mês 1
+                            }
 
-    System.out.println("Menor venda registrada: R$ " + menorVendaSistema);
-    System.out.println("Cliente responsável: " + clienteMenorVenda);
 
-    break;
+                            if (vendasCliente[cliente][mes] < menorVendaCliente) {
+                                menorVendaCliente = vendasCliente[cliente][mes];
+                                mesMenor = mes + 1;
+                            }
+
+
+                            if (vendasCliente[cliente][mes] > maiorVendaSistema) {
+                                maiorVendaSistema = vendasCliente[cliente][mes];
+                                clienteMaiorVenda = nomeCliente.get(cliente);
+                            }
+
+
+                            if (vendasCliente[cliente][mes] < menorVendaSistema) {
+                                menorVendaSistema = vendasCliente[cliente][mes];
+                                clienteMenorVenda = nomeCliente.get(cliente);
+                            }
+                        }
+
+                        System.out.println("\nCliente: " + nomeCliente.get(cliente));
+                        System.out.println("Total vendido: R$ " + totalCliente);
+                        System.out.println("Maior venda: R$ " + maiorVendaCliente + " (Mês " + mesMaior + ")");
+                        System.out.println("Menor venda: R$ " + menorVendaCliente + " (Mês " + mesMenor + ")");
+
+                        totalGeral += totalCliente;
+                    }
+
+
+                    System.out.println("Total geral vendido: R$ " + totalGeral);
+
+                    System.out.println("Maior venda registrada: R$ " + maiorVendaSistema);
+                    System.out.println("Cliente responsável: " + clienteMaiorVenda);
+
+                    System.out.println("Menor venda registrada: R$ " + menorVendaSistema);
+                    System.out.println("Cliente responsável: " + clienteMenorVenda);
+
+                    break;
 
                 case 0:
                     System.out.println("Programa encerrado");
@@ -206,11 +231,3 @@ public class controleDeVendas {
     }
 }
 
-/*
- * Desafios extras (opcionais):
- 
- * - Ranking dos 3 clientes com maior volume de vendas.
- * - Exibir meses com vendas acima da média.
- * - Alterar uma venda já cadastrada.
- * - Consultar os produtos mais vendidos.
- */
