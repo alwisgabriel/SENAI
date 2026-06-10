@@ -123,26 +123,78 @@ public class controleDeVendas {
 
                     break;
 
-                case 5:
+               case 5:
 
-                    int totalGeral = 0;
+    int totalGeral = 0;
 
-                    for (int cliente = 0; cliente < nomeCliente.size(); cliente++) {
-                    int totalCliente = 0;
+    // Começa assumindo que a primeira venda da matriz é a maior e a menor
+    int maiorVendaSistema = vendasCliente[0][0];
+    int menorVendaSistema = vendasCliente[0][0];
 
-                    for (int mes = 0; mes < 12; mes++) {
-                            totalCliente += vendasCliente[cliente][mes];
-                    }
+    String clienteMaiorVenda = nomeCliente.get(0);
+    String clienteMenorVenda = nomeCliente.get(0);
 
-                        System.out.println(nomeCliente.get(cliente));
-                        System.out.println("Total vendido: R$ " + totalCliente);
+  
+    for (int cliente = 0; cliente < nomeCliente.size(); cliente++) {
 
-                        totalGeral += totalCliente;
-                    }
+        int totalCliente = 0;
 
-                    System.out.println("Total geral vendido: R$ " + totalGeral);
+        // Começa assumindo que a primeira venda do cliente é a maior e a menor
+        int maiorVendaCliente = vendasCliente[cliente][0];
+        int menorVendaCliente = vendasCliente[cliente][0];
 
-                    break;
+
+        int mesMaior = 1;
+        int mesMenor = 1;
+
+
+        for (int mes = 0; mes < 12; mes++) {
+
+            totalCliente += vendasCliente[cliente][mes];
+
+            // Verifica se encontrou uma venda maior
+            if (vendasCliente[cliente][mes] > maiorVendaCliente) {
+                maiorVendaCliente = vendasCliente[cliente][mes];
+                mesMaior = mes + 1; // +1 porque janeiro é mês 1
+            }
+
+            // se encontrou uma venda menor
+            if (vendasCliente[cliente][mes] < menorVendaCliente) {
+                menorVendaCliente = vendasCliente[cliente][mes];
+                mesMenor = mes + 1;
+            }
+
+            // Verifica a maior venda do sistema inteiro
+            if (vendasCliente[cliente][mes] > maiorVendaSistema) {
+                maiorVendaSistema = vendasCliente[cliente][mes];
+                clienteMaiorVenda = nomeCliente.get(cliente);
+            }
+
+              // a menor venda do sistema inteiro
+            if (vendasCliente[cliente][mes] < menorVendaSistema) {
+                menorVendaSistema = vendasCliente[cliente][mes];
+                clienteMenorVenda = nomeCliente.get(cliente);
+            }
+        }
+
+        System.out.println("\nCliente: " + nomeCliente.get(cliente));
+        System.out.println("Total vendido: R$ " + totalCliente);
+        System.out.println("Maior venda: R$ " + maiorVendaCliente + " (Mês " + mesMaior + ")");
+        System.out.println("Menor venda: R$ " + menorVendaCliente + " (Mês " + mesMenor + ")");
+
+        totalGeral += totalCliente;
+    }
+
+    
+    System.out.println("Total geral vendido: R$ " + totalGeral);
+
+    System.out.println("Maior venda registrada: R$ " + maiorVendaSistema);
+    System.out.println("Cliente responsável: " + clienteMaiorVenda);
+
+    System.out.println("Menor venda registrada: R$ " + menorVendaSistema);
+    System.out.println("Cliente responsável: " + clienteMenorVenda);
+
+    break;
 
                 case 0:
                     System.out.println("Programa encerrado");
@@ -155,20 +207,8 @@ public class controleDeVendas {
 }
 
 /*
- * Falta implementar para cumprir todos os requisitos do trabalho:
- *
- * - Média mensal de vendas de cada cliente.
- * - Mês de maior venda de cada cliente.
- * - Mês de menor venda de cada cliente.
- * - Maior venda registrada no sistema.
- * - Menor venda registrada no sistema.
- * - Cliente responsável pela maior venda.
- * - Cliente responsável pela menor venda.
- * - Consulta de cliente pelo nome.
- * - Relatório geral completo com todas as estatísticas exigidas.
- *
  * Desafios extras (opcionais):
- *
+ 
  * - Ranking dos 3 clientes com maior volume de vendas.
  * - Exibir meses com vendas acima da média.
  * - Alterar uma venda já cadastrada.
