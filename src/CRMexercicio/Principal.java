@@ -32,9 +32,13 @@ public class Principal {
 
                     default:
                     System.out.println("Opção inválida!");
+
+                case 4:
+                  cli.consultarClientes();
+                  break;
             }
 
-   
+
         }while (resposta != 99);
     }
 }

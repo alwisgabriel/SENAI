@@ -67,4 +67,14 @@ public class Cliente {
         System.out.println("Clientes excluidos com sucesso!");
     };
 
+    void consultarClientes() {
+        System.out.println("Qual cliente deseja consultar?");
+        resposta = inputNumber.nextInt();
+
+        System.out.println (nmCliente.get(resposta));
+        System.out.println (nuCpf.get(resposta));
+        System.out.println (nuIdade.get(resposta));
+        System.out.println (vlSalario.get(resposta));
+    }
+
 }

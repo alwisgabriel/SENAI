@@ -11,6 +11,20 @@ public class controleDeVendas {
         Scanner entradaNumero = new Scanner(System.in);
 
         ArrayList<String> nomeCliente = new ArrayList<>();
+<<<<<<< HEAD
+=======
+        int[][] vendasCliente = new int[100][12]; // 100 clientes e 12 meses
+        ArrayList<String> nomeProduto = new ArrayList<>();
+        ArrayList<Integer> precoProduto = new ArrayList<>();
+        ArrayList<Integer> quantidade = new ArrayList<>();
+
+        int produtoVendido;
+        int quantidadeVendida;
+        int quantidadeProduto;
+        int somaVenda;
+        int somaMes;
+        int resposta;
+>>>>>>> 1e161b889091f566e0e8767c88be5a3a7c03a980
         int id = 0;
 
 
@@ -97,6 +111,10 @@ public class controleDeVendas {
 
                             System.out.println("Qual a quantidade vendida desse produto?");
                             quantidadeVendida = entradaNumero.nextInt();
+<<<<<<< HEAD
+
+                            somaMes += somaVenda * quantidadeVendida;
+=======
 
                             somaMes += somaVenda * quantidadeVendida;
                         }
@@ -107,6 +125,27 @@ public class controleDeVendas {
 
                     }
 
+                    break;
+
+                case 4:
+                    System.out.println("Digite o nome do cliente");
+                    String nomeConsulta = entradaTexto.nextLine().trim();
+
+                    int idEncontrado = -1;
+                    for (int i = 0; i < nomeCliente.size(); i++) {
+                        if (nomeCliente.get(i).equalsIgnoreCase(nomeConsulta)) { // Ignora maiúsculo e minúsculo
+                            idEncontrado = i;
+                            break;
+>>>>>>> 1e161b889091f566e0e8767c88be5a3a7c03a980
+                        }
+
+                        vendasCliente[idVenda][j] = somaMes;
+
+                        System.out.println("Total vendido no mês: " + somaMes);
+
+                    }
+
+<<<<<<< HEAD
                     break;
 
                 case 4:
@@ -124,12 +163,38 @@ public class controleDeVendas {
 
                     for (int mes = 0; mes < 12; mes++) {
                         int vendaMes = vendasCliente[idCliente][mes];
+=======
+                    if (idEncontrado == -1) {
+                        System.out.println("Cliente não encontrado: " + nomeConsulta);
+                        break;
+                    }
+
+
+                    System.out.println("Cliente: " + nomeCliente.get(idEncontrado));
+                    int totalAno = 0;
+                    for (int mes = 0; mes < 12; mes++) {
+                        int vendaMes = vendasCliente[idEncontrado][mes];
+>>>>>>> 1e161b889091f566e0e8767c88be5a3a7c03a980
                         System.out.println("Mês " + (mes + 1) + ": R$ " + vendaMes);
                         totalAno += vendaMes;
                     }
 
+<<<<<<< HEAD
                     int mediaMensal = totalAno / 12;
 
+=======
+                    for (int cliente = 0; cliente < nomeCliente.size(); cliente++) {
+
+                        for (int mes = 0; mes < 12; mes++) {
+
+                        }
+
+                        System.out.println(); // Quebra de linha após cada linha da matriz
+                    }
+
+
+                    int mediaMensal = totalAno / 12; // inteiro; se quiser decimal, use double
+>>>>>>> 1e161b889091f566e0e8767c88be5a3a7c03a980
                     System.out.println("Total anual: R$ " + totalAno);
                     System.out.println("Média mensal: R$ " + mediaMensal);
                     break;
